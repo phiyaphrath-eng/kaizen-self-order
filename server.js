@@ -22,9 +22,10 @@ app.get('/health', (req, res) => {
 
 app.post('/api/order', async (req, res) => {
   const { tableNumber, items, note } = req.body;
-  if (!tableNumber || !items || items.length === 0) {
-    return res.status(400).json({ error: 'Missing tableNumber or items' });
+  if (!items || items.length === 0) {
+    return res.status(400).json({ error: 'Missing items' });
   }
+  const table = tableNumber || 'Walk-in';
 
   const lineItems = items.map(item => ({
     name: item.name,
@@ -40,10 +41,10 @@ app.post('/api/order', async (req, res) => {
     idempotency_key: uuidv4(),
     order: {
       location_id: SQUARE_LOCATION_ID,
-      reference_id: `TABLE_${tableNumber}_${Date.now()}`,
+      reference_id: `TABLE_${table}_${Date.now()}`,
       line_items: lineItems,
       metadata: {
-        table: String(tableNumber),
+        table: String(table),
         source: 'kaizen-self-order',
         note: note || ''
       }
@@ -67,7 +68,7 @@ app.post('/api/order', async (req, res) => {
       return res.status(response.status).json({ error: data.errors?.[0]?.detail || 'Square API Error' });
     }
 
-    console.log(`✅ Order | Table ${tableNumber} | ID: ${data.order.id}`);
+    console.log(`✅ Order | Table ${table} | ID: ${data.order.id}`);
     res.json({ success: true, orderId: data.order.id });
 
   } catch (err) {
