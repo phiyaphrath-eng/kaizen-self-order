@@ -46,7 +46,7 @@ app.post('/api/order', async (req, res) => {
       metadata: {
         table: String(table),
         source: 'kaizen-self-order',
-        note: note || ''
+        ...(note ? { note } : {})
       }
     }
   };
