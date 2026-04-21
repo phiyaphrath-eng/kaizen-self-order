@@ -352,6 +352,14 @@ function buildTableScreen() {
   });
 }
 
+function changeTable() {
+  if(confirm("Change table? Your order will be kept.")) {
+    selectedTable = null;
+    document.getElementById("tableChip").textContent = "Table — ✏️";
+    document.getElementById("tableScreen").classList.remove("hidden");
+  }
+}
+
 function selectTable(id, label) {
   selectedTable = id;
   document.getElementById('tableChip').textContent = label;
