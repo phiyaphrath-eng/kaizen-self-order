@@ -42,6 +42,7 @@ app.post('/api/order', async (req, res) => {
     order: {
       location_id: SQUARE_LOCATION_ID,
       reference_id: `TABLE_${table}_${Date.now()}`,
+      source: { name: "Kaizen Self Order" },
       ticket_name: `Table ${table}`,
       line_items: lineItems,
       metadata: {
