@@ -264,7 +264,7 @@ header{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.97);backdrop-fi
     </div>
   </div>
   <div class="hdr-right">
-    <div class="table-chip" id="tableChip">Table — ✏️</div>
+    <div class="table-chip" id="tableChip" onclick="changeTable()" style="cursor:pointer;">Table — ✏️</div>
     <button class="cart-btn" onclick="openCart()">
       🛒 Cart
       <span class="cart-badge" id="cartBadge">0</span>
