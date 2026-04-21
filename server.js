@@ -43,6 +43,11 @@ app.post('/api/order', async (req, res) => {
       location_id: SQUARE_LOCATION_ID,
       reference_id: `TABLE_${table}_${Date.now()}`,
       line_items: lineItems,
+      fulfillments: [{
+        type: "DINE_IN",
+        state: "PROPOSED",
+        dine_in_details: { table_identifier: `T${table}` }
+      }],
       metadata: {
         table: String(table),
         source: 'kaizen-self-order',
